@@ -28,6 +28,7 @@ router.post("/", (req, res) => {
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
+    user: req.userId,
   });
   product.save();
   res.json(product);

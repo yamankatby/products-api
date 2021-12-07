@@ -1,9 +1,11 @@
 const express = require("express");
+const authRouter = require("./routes/auth");
 const productsRouter = require("./routes/products");
 const mongoose = require("mongoose");
 require("dotenv/config");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const verifyToken = require("./middleware/verifyToken");
 
 const app = express();
 
@@ -26,7 +28,8 @@ app.get("/", (req, res) => {
   res.send("Hi, welcome to Products RESTFUL API 😍");
 });
 
-app.use("/products", productsRouter);
+app.use("/auth", authRouter);
+app.use("/products", verifyToken, productsRouter);
 
 const port = process.env.PORT || 5000;
 
